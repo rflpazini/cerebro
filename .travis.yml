@@ -6,7 +6,8 @@ node_js:
 
 install:
   - npm install -g codecov
-  
+  - npm install
+
 cache:
   directories:
     - node_modules
@@ -17,4 +18,4 @@ before_install:
 script:
   - npm run test
   - npm run lint
-  - npm run coverage
+  - npm run test:coverage
