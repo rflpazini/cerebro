@@ -1,0 +1,43 @@
+{
+  "name": "cerebro",
+  "version": "1.0.0",
+  "description": "Cerebro is a web crawler used to find taxpayer's info on central registry",
+  "main": "index.js",
+  "repository": "https://github.com/rflpazini/cerebro",
+  "author": "Rafael Pazini <rflpazini@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon --inspect=0.0.0.0 ./app.js",
+    "start:prod": "node ./app.js",
+    "test": "jest",
+    "format": "prettier --trailing-comma es5 --single-quote --write 'src/*/*.js' 'src/*/!(node_modules)/**/*.js'"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "husky": "^3.0.0",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css,html}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ]
+  }
+}
