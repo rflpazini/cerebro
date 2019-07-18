@@ -1,7 +1,11 @@
 const request = require('supertest');
 const app = require('../../app');
 
-describe('Basic routes', function() {
+describe('Basic routes', () => {
+  afterAll(done => {
+    app.close(done);
+  });
+
   test('should return 200 ping route', done => {
     request(app)
       .get('/ping')
