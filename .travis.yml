@@ -34,6 +34,6 @@ before_deploy:
   - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${git_sha}"
 deploy:
   provider: script
-  script: bash docker_push
+  script: bash .travis/docker_push
   on:
     branch: master
