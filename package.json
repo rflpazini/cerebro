@@ -47,6 +47,7 @@
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "testPathIgnorePatterns": ["<rootDir>/node_modules/", "<rootDir>/config/"]
   }
 }

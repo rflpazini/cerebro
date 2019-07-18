@@ -4,6 +4,10 @@ node_js:
 - node
 - 'lts/*'
 
+env:
+  global:
+    - IMAGE_NAME=rflpazini/cerebro
+
 install:
   - npm install -g codecov
   - npm install
@@ -12,10 +16,24 @@ cache:
   directories:
     - node_modules
 
+services:
+  - docker
+
 before_install:
   - npm update -g npm
 
 script:
-  - npm run test
-  - npm run lint
   - npm run test:coverage
+  - npm run lint
+  - docker build --tag "$IMAGE_NAME" .
+
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - git_sha="$(git rev-parse --short HEAD)"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${git_sha}"
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
