@@ -33,10 +33,10 @@ before_deploy:
 
 deploy:
   - provider: script
-    script: bash .travis/docker_push_staging
+    script: bash .travis/docker_push_staging $TAG
     on:
       branch: staging
   - provider: script
-    script: bash .travis/docker_push_production
+    script: bash .travis/docker_push_production $VERSION
     on:
       branch: master
