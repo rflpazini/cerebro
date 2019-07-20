@@ -5,18 +5,7 @@ const config = require('../../config');
 
 class TaxPayer {
   static async getTaxPayer(req, res) {
-    const taxPayerNumber = req.query.cnpj;
-    const taxPayerStateRegistryNumber = req.query.ie;
-    const taxPayerUf = req.query.uf ? req.query.uf : '35';
-    const environment = req.query.env ? req.query.env : '1';
-
-    const requestBody = {
-      codUf: taxPayerUf,
-      codInscrMf: taxPayerNumber,
-      codIe: taxPayerStateRegistryNumber,
-      ambiente: environment,
-      tipoInscrMf: '1',
-    };
+    const requestBody = TaxPayer.prepareRequestbody(req.query);
 
     const requestConfig = {
       headers: {
@@ -30,7 +19,24 @@ class TaxPayer {
       requestConfig
     );
 
+    console.log(response.data);
+
     return res.status(response.status).end();
+  }
+
+  static prepareRequestbody(request) {
+    const taxPayerNumber = request.cnpj;
+    const taxPayerStateRegistryNumber = request.ie;
+    const taxPayerUf = request.uf ? request.uf : '35';
+    const environment = request.env ? request.env : '1';
+
+    return {
+      codUf: taxPayerUf,
+      codInscrMf: taxPayerNumber,
+      codIe: taxPayerStateRegistryNumber,
+      ambiente: environment,
+      tipoInscrMf: '1',
+    };
   }
 }
 
