@@ -1,5 +1,3 @@
-const createError = require('http-errors');
-
 const StateEnum = require('../../src/utils/StateEnum');
 
 describe('State enum', () => {
