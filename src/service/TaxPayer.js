@@ -5,6 +5,7 @@ const qs = require('qs');
 const config = require('../../config');
 
 const TaxPayerUtil = require('../utils/TaxPayerUtil');
+const StateEnum = require('../utils/StateEnum');
 
 class TaxPayer {
   static async getTaxPayer(req, res, next) {
@@ -33,13 +34,13 @@ class TaxPayer {
   static prepareRequestbody(request) {
     const taxPayerNumber = request.cnpj;
     const taxPayerStateRegistryNumber = request.ie;
-    const taxPayerUf = request.uf ? request.uf : '35';
+    const taxPayerUf = request.uf ? request.uf : 'SP';
     const environment = request.env ? request.env : '1';
 
     const requestBody = {
       codInscrMf: taxPayerNumber,
       codIe: taxPayerStateRegistryNumber,
-      codUf: taxPayerUf,
+      codUf: StateEnum.getStateCode(taxPayerUf),
       ambiente: environment,
       tipoInscrMf: '1',
     };

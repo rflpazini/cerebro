@@ -7,14 +7,14 @@ describe('TaxPayer service', () => {
     const mockedRequestBody = {
       cnpj: '1312323',
       ie: '1232321',
-      uf: '23',
+      uf: 'RJ',
       env: '2',
     };
 
     const response = {
       codInscrMf: '1312323',
       codIe: '1232321',
-      codUf: '23',
+      codUf: '33',
       ambiente: '2',
       tipoInscrMf: '1',
     };
