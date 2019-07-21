@@ -40,9 +40,13 @@ To access the api, type `localhost:8080` on your preffered browser 👨🏼‍�
 ## Searching a company
 
 You have four filters to use on search:
+
 `cnpj` -> Required field
+
 `ie` -> Required field
-`state` -> Required field
+
+`uf` -> Required field
+
 `env` -> Optional field (Default is always production environment)
 
 Sample request
