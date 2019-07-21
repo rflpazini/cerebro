@@ -28,7 +28,7 @@ describe('TaxPayer service', () => {
     expect(actual).toEqual(expected);
   });
 
-  test('should prepare body request without passing state and environment', () => {
+  test('should prepare body request with default state and environment', () => {
     // given
     const mockedRequestBody = {
       cnpj: '1312323',
