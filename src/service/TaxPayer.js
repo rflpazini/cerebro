@@ -3,8 +3,11 @@ const qs = require('qs');
 
 const config = require('../../config');
 
+const TaxPayerUtil = require('../utils/TaxPayerUtil');
+const createError = require('http-errors');
+
 class TaxPayer {
-  static async getTaxPayer(req, res) {
+  static async getTaxPayer(req, res, next) {
     const requestBody = TaxPayer.prepareRequestbody(req.query);
 
     const requestConfig = {
@@ -15,13 +18,16 @@ class TaxPayer {
 
     const response = await axios.post(
       config.api.external.ccc_service,
-      qs.stringify(requestBody),
+      requestBody,
       requestConfig
     );
 
-    console.log(response.data);
+    const err = TaxPayerUtil.verifyData(response.data);
+    if (err) {
+      return next(createError(400, 'Invalid state registry'));
+    }
 
-    return res.status(response.status).end();
+    res.status(response.status).end();
   }
 
   static prepareRequestbody(request) {
@@ -30,13 +36,15 @@ class TaxPayer {
     const taxPayerUf = request.uf ? request.uf : '35';
     const environment = request.env ? request.env : '1';
 
-    return {
+    const requestBody = {
       codUf: taxPayerUf,
       codInscrMf: taxPayerNumber,
       codIe: taxPayerStateRegistryNumber,
       ambiente: environment,
       tipoInscrMf: '1',
     };
+
+    return qs.stringify(requestBody);
   }
 }
 
