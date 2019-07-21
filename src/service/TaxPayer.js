@@ -37,9 +37,9 @@ class TaxPayer {
     const environment = request.env ? request.env : '1';
 
     const requestBody = {
-      codUf: taxPayerUf,
       codInscrMf: taxPayerNumber,
       codIe: taxPayerStateRegistryNumber,
+      codUf: taxPayerUf,
       ambiente: environment,
       tipoInscrMf: '1',
     };
