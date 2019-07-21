@@ -1,5 +1,7 @@
 FROM node:10-alpine
 
+ENV CEREBRO_VERSION 0.0.1
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./

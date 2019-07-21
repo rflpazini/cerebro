@@ -28,14 +28,15 @@ script:
   - docker build --tag "$IMAGE_NAME" .
 
 before_deploy:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - TAG="$(git log -1 --pretty=%h)"
-  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
-  - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TAG}"
-
+  - VERSION="$(awk '$2 == "CEREBRO_VERSION" { print $3; exit }' Dockerfile)"
 
 deploy:
-  provider: script
-  script: docker push "${IMAGE_NAME}:latest" && docker push "${IMAGE_NAME}:${TAG}"
-  on:
-    branch: master
+  - provider: script
+    script: bash .travis/docker_push_staging $TAG
+    on:
+      branch: staging
+  - provider: script
+    script: bash .travis/docker_push_production $VERSION
+    on:
+      branch: master
