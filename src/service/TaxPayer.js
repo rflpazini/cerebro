@@ -1,10 +1,10 @@
+const createError = require('http-errors');
 const axios = require('axios');
 const qs = require('qs');
 
 const config = require('../../config');
 
 const TaxPayerUtil = require('../utils/TaxPayerUtil');
-const createError = require('http-errors');
 
 class TaxPayer {
   static async getTaxPayer(req, res, next) {
