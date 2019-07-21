@@ -22,7 +22,7 @@ class TaxPayer {
       requestConfig
     );
 
-    const err = TaxPayerUtil.verifyData(response.data);
+    const err = TaxPayerUtil.isInvalidData(response.data);
     if (err) {
       return next(createError(400, 'Invalid state registry'));
     }

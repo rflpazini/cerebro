@@ -1,5 +1,5 @@
 class TaxPayerUtil {
-  static verifyData(data) {
+  static isInvalidData(data) {
     return !data.includes('class');
   }
 }
